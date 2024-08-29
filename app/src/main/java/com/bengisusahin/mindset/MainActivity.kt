@@ -1,6 +1,7 @@
 package com.bengisusahin.mindset
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,9 +26,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.switchEgo.isChecked = true
         updateSwitchesState()
+        updateBottomNavigationVisibility()
 
         binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
             updateSwitchesState()
+            updateBottomNavigationVisibility()
         }
     }
 
@@ -48,6 +51,15 @@ class MainActivity : AppCompatActivity() {
             switchKindness.isEnabled = !isEgoChecked
             switchGiving.isEnabled = !isEgoChecked
             switchRespect.isEnabled = !isEgoChecked
+        }
+    }
+
+    private fun updateBottomNavigationVisibility() {
+        val isEgoChecked = binding.switchEgo.isChecked
+        binding.bottomNavigation.visibility = if (isEgoChecked) {
+            View.VISIBLE
+        } else {
+            View.GONE
         }
     }
 

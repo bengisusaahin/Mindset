@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.bengisusahin.mindset.databinding.FragmentHomeBinding
 
 
@@ -28,14 +29,14 @@ class HomeFragment : Fragment() {
 
         binding.switchEgo.isChecked = true
         updateSwitchesState()
+        updateBottomNavigationVisibility(binding.switchEgo.isChecked)
 
         (activity as MainActivity).binding.bottomNavigation.visibility =
             if (binding.switchEgo.isChecked) View.GONE else View.VISIBLE
 
         binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
             updateSwitchesState()
-            (activity as MainActivity).binding.bottomNavigation.visibility =
-                if (isChecked) View.GONE else View.VISIBLE
+            updateBottomNavigationVisibility(isChecked)
         }
     }
 
@@ -60,15 +61,27 @@ class HomeFragment : Fragment() {
 
                 switch.setOnCheckedChangeListener { _, isChecked ->
                     val bottomNavigationView = (activity as MainActivity).binding.bottomNavigation
+                    val currentSwitchCount = bottomNavigationView.menu.size()
+
                     if (isChecked) {
-                        bottomNavigationView.menu.add(Menu.NONE, switch.id, Menu.NONE, title)
-                            .setIcon(iconResId)
+                        if (currentSwitchCount < 5) {
+                            bottomNavigationView.menu.add(Menu.NONE, switch.id, Menu.NONE, title)
+                                .setIcon(iconResId)
+                        }else {
+                            Toast.makeText(context, "Maximum switch limit reached", Toast.LENGTH_SHORT).show()
+                            switch.isChecked = false
+                        }
                     } else {
                         bottomNavigationView.menu.removeItem(switch.id)
                     }
                 }
             }
         }
+    }
+
+    private fun updateBottomNavigationVisibility(isEgoChecked: Boolean) {
+        (activity as MainActivity).binding.bottomNavigation.visibility =
+            if (isEgoChecked) View.GONE else View.VISIBLE
     }
 
     override fun onDestroyView() {

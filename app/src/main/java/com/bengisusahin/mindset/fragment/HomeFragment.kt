@@ -1,14 +1,15 @@
-package com.bengisusahin.mindset
+package com.bengisusahin.mindset.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.bengisusahin.mindset.MainActivity
+import com.bengisusahin.mindset.R
 import com.bengisusahin.mindset.databinding.FragmentHomeBinding
-
 
 class HomeFragment : Fragment() {
 
@@ -30,9 +31,6 @@ class HomeFragment : Fragment() {
         binding.switchEgo.isChecked = true
         updateSwitchesState()
         updateBottomNavigationVisibility(binding.switchEgo.isChecked)
-
-        (activity as MainActivity).binding.bottomNavigation.visibility =
-            if (binding.switchEgo.isChecked) View.GONE else View.VISIBLE
 
         binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
             updateSwitchesState()
@@ -68,7 +66,11 @@ class HomeFragment : Fragment() {
                             bottomNavigationView.menu.add(Menu.NONE, switch.id, Menu.NONE, title)
                                 .setIcon(iconResId)
                         }else {
-                            Toast.makeText(context, "Maximum switch limit reached", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                context,
+                                "Maximum switch limit reached",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             switch.isChecked = false
                         }
                     } else {

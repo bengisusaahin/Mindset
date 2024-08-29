@@ -5,33 +5,5 @@
         android:title="@string/home"
         android:icon="@drawable/ic_home" />
 
-    <item
-        android:id="@+id/navigation_happiness"
-        android:title= "@string/happiness"
-        android:icon="@drawable/ic_happiness"
-        android:visible="false" />
 
-    <item
-        android:id="@+id/navigation_optimism"
-        android:title="@string/optimism"
-        android:icon="@drawable/ic_optimism"
-        android:visible="false" />
-
-    <item
-        android:id="@+id/navigation_kindness"
-        android:title="@string/kindness"
-        android:icon="@drawable/ic_kindness"
-        android:visible="false" />
-
-    <item
-        android:id="@+id/navigation_giving"
-        android:title="@string/giving"
-        android:icon="@drawable/ic_giving"
-        android:visible="false" />
-
-    <item
-        android:id="@+id/navigation_respect"
-        android:title="@string/respect"
-        android:icon="@drawable/ic_respect"
-        android:visible="false" />
 </menu>

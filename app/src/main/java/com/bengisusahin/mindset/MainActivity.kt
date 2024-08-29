@@ -10,12 +10,14 @@ import com.bengisusahin.mindset.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var _binding: ActivityMainBinding
+    val binding: ActivityMainBinding
+        get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -23,44 +25,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val bottomNavigationView = binding.bottomNavigation
 
-        binding.switchEgo.isChecked = true
-        updateSwitchesState()
-        updateBottomNavigationVisibility()
-
-        binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
-            updateSwitchesState()
-            updateBottomNavigationVisibility()
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, HomeFragment())
+                .commit()
         }
     }
-
-    private fun updateSwitchesState() {
-        val isEgoChecked = binding.switchEgo.isChecked
-
-        binding.apply {
-            if (isEgoChecked) {
-                switchHappiness.isChecked = false
-                switchOptimism.isChecked = false
-                switchKindness.isChecked = false
-                switchGiving.isChecked = false
-                switchRespect.isChecked = false
-            }
-
-            switchHappiness.isEnabled = !isEgoChecked
-            switchOptimism.isEnabled = !isEgoChecked
-            switchKindness.isEnabled = !isEgoChecked
-            switchGiving.isEnabled = !isEgoChecked
-            switchRespect.isEnabled = !isEgoChecked
-        }
-    }
-
-    private fun updateBottomNavigationVisibility() {
-        val isEgoChecked = binding.switchEgo.isChecked
-        binding.bottomNavigation.visibility = if (isEgoChecked) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
-    }
-
 }

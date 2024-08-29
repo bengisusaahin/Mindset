@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Mindset</string>
+    <string name="respect">Respect</string>
+    <string name="ego">Ego</string>
+    <string name="giving">Giving</string>
+    <string name="kindness">Kindness</string>
+    <string name="optimism">Optimism</string>
+    <string name="happiness">Happiness</string>
 </resources>

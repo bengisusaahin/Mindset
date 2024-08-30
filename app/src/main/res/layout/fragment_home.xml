@@ -30,7 +30,10 @@
                 android:id="@+id/switchHappiness"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:trackDecorationTint="@drawable/switch_colors"
+                app:trackTint="@drawable/switch_colors"
+                app:thumbTint="@color/white" />
 
             <TextView
                 android:id="@+id/textHappiness"
@@ -54,7 +57,10 @@
                 android:id="@+id/switchOptimism"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:trackDecorationTint="@drawable/switch_colors"
+                app:trackTint="@drawable/switch_colors"
+                app:thumbTint="@color/white" />
 
             <TextView
                 android:id="@+id/textOptimism"
@@ -78,7 +84,10 @@
                 android:id="@+id/switchKindness"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:trackDecorationTint="@drawable/switch_colors"
+                app:trackTint="@drawable/switch_colors"
+                app:thumbTint="@color/white" />
 
             <TextView
                 android:id="@+id/textKindness"
@@ -112,7 +121,10 @@
                 android:id="@+id/switchGiving"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:trackDecorationTint="@drawable/switch_colors"
+                app:trackTint="@drawable/switch_colors"
+                app:thumbTint="@color/white"/>
 
             <TextView
                 android:id="@+id/textGiving"
@@ -136,7 +148,10 @@
                 android:id="@+id/switchRespect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:trackDecorationTint="@drawable/switch_colors"
+                app:trackTint="@drawable/switch_colors"
+                app:thumbTint="@color/white" />
 
             <TextView
                 android:id="@+id/textRespect"
@@ -160,7 +175,10 @@
                 android:id="@+id/switchEgo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                app:trackDecorationTint="@drawable/switch_colors"
+                app:trackTint="@drawable/switch_colors"
+                app:thumbTint="@color/white" />
 
             <TextView
                 android:id="@+id/textEgo"

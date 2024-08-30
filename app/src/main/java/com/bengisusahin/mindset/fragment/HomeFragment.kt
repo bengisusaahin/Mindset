@@ -16,6 +16,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private val addedItemsSet = mutableSetOf<Int>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,19 +64,28 @@ class HomeFragment : Fragment() {
                     val currentSwitchCount = bottomNavigationView.menu.size()
 
                     if (isChecked) {
-                        if (currentSwitchCount < 5) {
+                        if (currentSwitchCount < 5 && !addedItemsSet.contains(switch.id)) {
                             bottomNavigationView.menu.add(Menu.NONE, switch.id, Menu.NONE, title)
                                 .setIcon(iconResId)
-                        }else {
+                            addedItemsSet.add(switch.id)
+                        } else if (currentSwitchCount >= 5) {
                             Toast.makeText(
                                 context,
-                                "Maximum switch limit reached",
+                                "Maximum switch limit reached.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            switch.isChecked = false
+                        } else {
+                            Toast.makeText(
+                                context,
+                                "$title already added.",
                                 Toast.LENGTH_SHORT
                             ).show()
                             switch.isChecked = false
                         }
                     } else {
                         bottomNavigationView.menu.removeItem(switch.id)
+                        addedItemsSet.remove(switch.id)
                     }
                 }
             }

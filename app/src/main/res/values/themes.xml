@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.Mindset" parent="Base.Theme.Mindset" />
+
+    <style name="BottomNavThem" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/red</item>
+    </style>
 </resources>

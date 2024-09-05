@@ -37,6 +37,10 @@ class HomeFragment : Fragment() {
         binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
             updateSwitchesState()
             updateBottomNavigationVisibility(isChecked)
+
+            if (isChecked) {
+                resetSwitchesAndBottomNav()
+            }
         }
     }
 
@@ -95,6 +99,19 @@ class HomeFragment : Fragment() {
     private fun updateBottomNavigationVisibility(isEgoChecked: Boolean) {
         (activity as MainActivity).binding.bottomNavigation.visibility =
             if (isEgoChecked) View.GONE else View.VISIBLE
+    }
+
+    private fun resetSwitchesAndBottomNav() {
+        val bottomNavigationView = (activity as MainActivity).binding.bottomNavigation
+        
+        for (i in bottomNavigationView.menu.size() - 1 downTo 0) {
+            val itemId = bottomNavigationView.menu.getItem(i).itemId
+
+            if (itemId != R.id.navigation_home) {
+                bottomNavigationView.menu.removeItem(itemId)
+                addedItemsSet.remove(itemId)
+            }
+        }
     }
 
     override fun onDestroyView() {

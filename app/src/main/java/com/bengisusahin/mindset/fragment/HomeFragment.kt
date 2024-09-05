@@ -7,14 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.bengisusahin.mindset.MainActivity
 import com.bengisusahin.mindset.R
 import com.bengisusahin.mindset.databinding.FragmentHomeBinding
+import com.bengisusahin.mindset.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val homeViewModel: HomeViewModel by activityViewModels()
 
     private val addedItemsSet = mutableSetOf<Int>()
 
@@ -30,22 +34,27 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.switchEgo.isChecked = true
-        updateSwitchesState()
-        updateBottomNavigationVisibility(binding.switchEgo.isChecked)
-
-        binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
-            updateSwitchesState()
+        homeViewModel.isEgoChecked.observe(viewLifecycleOwner) { isChecked ->
+            binding.switchEgo.isChecked = isChecked
             updateBottomNavigationVisibility(isChecked)
+            updateSwitchesState()
+        }
 
+        homeViewModel.addedItemsSet.observe(viewLifecycleOwner) { addedItems ->
+            updateSwitchesState()
+        }
+
+        // Listener for the Ego switch
+        binding.switchEgo.setOnCheckedChangeListener { _, isChecked ->
+            homeViewModel.setEgoChecked(isChecked) // Update ViewModel with new state
             if (isChecked) {
-                resetSwitchesAndBottomNav()
+                resetSwitchesAndBottomNav() // Reset other switches and bottom navigation
             }
         }
     }
 
     private fun updateSwitchesState() {
-        val isEgoChecked = binding.switchEgo.isChecked
+        val isEgoChecked = homeViewModel.isEgoChecked.value ?: true
 
         binding.apply {
             val switches = listOf(
@@ -60,18 +69,18 @@ class HomeFragment : Fragment() {
             switches.forEach { (switch, iconResId, title) ->
                 switch.setOnCheckedChangeListener(null)
 
-                switch.isChecked = false
-                switch.isEnabled = !isEgoChecked
+                switch.isChecked = if (isEgoChecked) false else (homeViewModel.addedItemsSet.value?.contains(switch.id) == true)
+                switch.isEnabled = !isEgoChecked 
 
                 switch.setOnCheckedChangeListener { _, isChecked ->
                     val bottomNavigationView = (activity as MainActivity).binding.bottomNavigation
                     val currentSwitchCount = bottomNavigationView.menu.size()
 
                     if (isChecked) {
-                        if (currentSwitchCount < 5 && !addedItemsSet.contains(switch.id)) {
+                        if (currentSwitchCount < 5 && !homeViewModel.addedItemsSet.value!!.contains(switch.id)) {
                             bottomNavigationView.menu.add(Menu.NONE, switch.id, Menu.NONE, title)
                                 .setIcon(iconResId)
-                            addedItemsSet.add(switch.id)
+                            homeViewModel.addItem(switch.id)
                         } else if (currentSwitchCount >= 5) {
                             Toast.makeText(
                                 context,
@@ -89,7 +98,7 @@ class HomeFragment : Fragment() {
                         }
                     } else {
                         bottomNavigationView.menu.removeItem(switch.id)
-                        addedItemsSet.remove(switch.id)
+                        homeViewModel.removeItem(switch.id)
                     }
                 }
             }
@@ -109,7 +118,7 @@ class HomeFragment : Fragment() {
 
             if (itemId != R.id.navigation_home) {
                 bottomNavigationView.menu.removeItem(itemId)
-                addedItemsSet.remove(itemId)
+                homeViewModel.removeItem(itemId)
             }
         }
     }

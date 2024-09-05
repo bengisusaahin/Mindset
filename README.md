@@ -20,7 +20,8 @@ This project aims to develop an Android application using Jetpack Navigation and
 <img src="https://github.com/bengisusaahin/Mindset/blob/main/screenshots/Screenshot_egoIsOpen.png" width="180"/> <img src="https://github.com/bengisusaahin/Mindset/blob/main/screenshots/Screenshot_egoIsClosed.png" width="180"/> <img src="https://github.com/bengisusaahin/Mindset/blob/main/screenshots/Screenshot_twoSwitchesSelected.png" width="180"/> <img src="https://github.com/bengisusaahin/Mindset/blob/main/screenshots/Screenshot_kindness_detail.png" width="180"/>
 
 ## Demo
-https://github.com/user-attachments/assets/4c45df53-f0ca-4935-a6e9-92db135cf24a
+https://github.com/user-attachments/assets/69ae82b9-75b9-42b4-97ea-7669f85f4f20
+
 
 
 
